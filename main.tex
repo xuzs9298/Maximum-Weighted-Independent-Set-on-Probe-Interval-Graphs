@@ -1,0 +1,358 @@
+%% 
+%% Copyright 2007, 2008, 2009 Elsevier Ltd
+%% 
+%% This file is part of the 'Elsarticle Bundle'.
+%% ---------------------------------------------
+%% 
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%% 
+%% The list of all files belonging to the 'Elsarticle Bundle' is
+%% given in the file `manifest.txt'.
+%% 
+%% Template article for Elsevier's document class `elsarticle'
+%% with harvard style bibliographic references
+%% SP 2008/03/01
+
+\documentclass[preprint,12pt,authoryear]{elsarticle}
+
+%% Use the option review to obtain double line spacing
+%% \documentclass[authoryear,preprint,review,12pt]{elsarticle}
+
+%% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
+%% for a journal layout:
+%% \documentclass[final,1p,times,authoryear]{elsarticle}
+%% \documentclass[final,1p,times,twocolumn,authoryear]{elsarticle}
+%% \documentclass[final,3p,times,authoryear]{elsarticle}
+%% \documentclass[final,3p,times,twocolumn,authoryear]{elsarticle}
+%% \documentclass[final,5p,times,authoryear]{elsarticle}
+%% \documentclass[final,5p,times,twocolumn,authoryear]{elsarticle}
+
+%% For including figures, graphicx.sty has been loaded in
+%% elsarticle.cls. If you prefer to use the old commands
+%% please give \usepackage{epsfig}
+
+%% The amssymb package provides various useful mathematical symbols
+\usepackage{amssymb}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{claim}[theorem]{claim}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\newenvironment{proof}[1][Proof]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{definition}[1][Definition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{example}[1][Example]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{remark}[1][Remark]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+
+%% The amsthm package provides extended theorem environments
+%% \usepackage{amsthm}
+
+%% The lineno packages adds line numbers. Start line numbering with
+%% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
+%% for the whole article with \linenumbers.
+%% \usepackage{lineno}
+
+\journal{Information Processing Letters}
+
+\begin{document}
+
+
+%% Title, authors and addresses
+
+%% use the tnoteref command within \title for footnotes;
+%% use the tnotetext command for theassociated footnote;
+%% use the fnref command within \author or \address for footnotes;
+%% use the fntext command for theassociated footnote;
+%% use the corref command within \author for corresponding author footnotes;
+%% use the cortext command for theassociated footnote;
+%% use the ead command for the email address,
+%% and the form \ead[url] for the home page:
+%% \title{Title\tnoteref{label1}}
+%% \tnotetext[label1]{}
+%% \author{Name\corref{cor1}\fnref{label2}}
+%% \ead{email address}
+%% \ead[url]{home page}
+%% \fntext[label2]{}
+%% \cortext[cor1]{}
+%% \address{Address\fnref{label3}}
+%% \fntext[label3]{}
+
+\title{Linear Time Algorithm for Maximum Weighted Independent Set on Probe Interval Graphs}
+
+
+\begin{frontmatter}
+%% use optional labels to link authors explicitly to addresses:
+%% \author[label1,label2]{}
+%% \address[label1]{}
+%% \address[label2]{}
+
+\author{Pritish Chamania, Ross Mcconnell, Zhisheng Xu}
+
+\address{}
+
+\begin{abstract}
+%% Text of abstract
+In this paper, we give a linear time algorithm for finding maximum weighted independent set on probe interval graphs.
+
+\end{abstract}
+
+\begin{keyword}
+%% keywords here, in the form: keyword \sep keyword
+
+%% PACS codes here, in the form: \PACS code \sep code
+
+%% MSC codes here, in the form: \MSC code \sep code
+%% or \MSC[2008] code \sep code (2000 is the default)
+Probe Interval Graph \sep Maximum Weighted Independent Set
+\end{keyword}
+
+\end{frontmatter}
+
+%% \linenumbers
+
+%% main text
+
+\section{Introduction}
+To be decided.
+
+\section{Preliminary}
+Let $G = (P, N, E)$ denote a probe interval graph. $P$ is the set of Probe vertices, $N$ is the set of Non-Probe vertices and we denote $V = P\cup N$. Every vertexes $i$ has weight $w_i$. McConnell's recognition algorithm produces an probe interval model in linear time. In the model, each vertexes $i$ will have a label of Non-probe or Probe, with a interval $(l_{i}, r_{i})$ indicating the left endpoint and right endpoint. Without loss of generosity, we may assume that all starting and ending points are unique and from $1$ to $2n$. \par
+We can separate interval $[1,2n]$ into $n$ segments by $n$ left endpoints.(1 must be a left endpoint).
+Let $S = \{Seg(1), Seg(2),...Seg(n)\}$ be the partition. For vertex i, Seg(i) is the segment starts at $l_{i}$, ends at next left endpoint. The vertices and segments are one to one correspondence. Let $S_{i}$ be the set of all interval/vertices that intersects $Seg(i)$.\par 
+%A clique is a set of intervals that intersect pairwise. A maximal clique is one that is not contained in any clique. If a clique C is maximal, then there exists a interval intersects C and C is its leftmost intersected clique, similarly, there exists a interval intersects C and C is its rightmost intersected clique. The number of maximal cliques in P is O(n). 
+
+\section{Algorithm}
+
+We compute non-negative values $w_{ij}$ for every segment $j$ in $S$, such that
+
+\begin{equation}
+\label{eqw}
+\sum\limits_{j \in S} w_{ij} = w_{i}
+\end{equation}
+
+ Also for each $Seg(i)$, we assign $y_i$ such that%such that $y_C$ is the sum of the weights all Non-probes unloaded, or the largest weight any single Probe unloaded, depends on which is larger.
+\begin{equation}
+\label{eqy}
+y_i = \max(\sum\limits_{n\in N}w_{ni},\max\limits_{p\in P}w_{pi})
+\end{equation}
+
+We'll show that $\sum\limits_{i}y_{i}$ is the solution in next section. The method for getting $w_{ij}$ and $y_i$ as follows:
+
+\begin{algorithm}[!htp]
+\label{algo1}
+ \KwResult{Assign $w_{ij}$ and $y_i$ values}
+ Create new variables $w^{'}_i$ for each $w_i$, $w^{'}_i$ initialized to $w_i$\\
+ %$S_{P} = \emptyset$\
+ %$S_{N} = \emptyset$\
+ 
+ \For{ $i \in V$ from right to left by left endpoint}{
+ 
+  Let $S_{P}(i)$ be the set of all Probes in $S_{i}$ and has left endpoint before i\\
+  Let $S_{N}(i)$ be the set of all Non-Probes in $S_{i}$ and has left endpoint before i\\
+  
+  $y_i \leftarrow w^{'}_i$\\
+  $w_{ii} \leftarrow w^{'}_i$\\
+  $w^{'}_i \leftarrow 0$\\
+  \For{$p$ in $S_{P}(i)$} 
+  {
+     $w_{pi} \leftarrow min(w^{'}_p, y_i)$\\
+     $w^{'}_{p} \leftarrow w^{'}_p - w_{pi}$\\
+  }
+
+  \If{$i$ is a Probe}{
+      $y^{'}_i \leftarrow y_i$\\
+      \For{ $n$ in $S_{N}(i)$ from right to left by starting point}
+      {
+        $w_{ni} \leftarrow min(w^{'}_k, y^{'}_i)$\\
+        $w^{'}_n \leftarrow w^{'}_n - w_{ni}$\\
+        $y^{'}_i \leftarrow y^{'}_i - min(w_{ni}, y^{'}_i)$\\
+      }
+      %\If{y^{'}_i \equals 0}{
+      %    mark{}
+      %}
+      %\Else{}
+   }
+  
+ }
+ \caption{Assigning $w_{ij}$ and $y_i$ values}
+\end{algorithm}
+
+\begin{lemma}
+$\sum\limits_{j \in S} w_{ij} = w_{i}$ after algorithm \ref{algo1}
+\end{lemma}
+\begin{proof}
+The process goes from right to left by left endpoint, $w_{ij}$ can be seen as the amount of weight interval $i$ "unloaded" into $Seg(j)$. Once we unload some weight $w_{ij}$, we decrease the remaining weight $w^{'}_i$ by $w_{ij}$. The amount we unload each time is up to the current remaining weight $w^{'}_i$, thus $\sum\limits_{j \in S} w_{ij} + w_{i}^{'}= w_{i}$ is invariant during the process. $w^{'}_i$ will be decreased to 0 before or at processing $i$, so $\sum\limits_{j \in S} w_{ij} = w_{i}$ after the process.\\
+\end{proof}
+
+Every time that we process an interval $i$, we set $y_i = w^{'}_i$, then set $w_{ii}$ to $w^{'}_i$. No matter whether $i$ is a probe or a non-probe, every probe $j$ that intersects $i$ will unload $min(w^{'}_j, y_i)$ weight on $i$. If $i$ is a probe, then for every non-probe $k$ that intersects $i$, we process them from right to left by starting point, unloading $min(w^{'}_k, y^{'}_i)$ weight on $i$, $y_{i}^{'}$ is decreased along the process until it becomes $0$.\\
+
+\begin{lemma}
+$y_i = \max(\sum\limits_{n\in N}w_{ni},\max\limits_{p\in P}w_{pi})$ after algorithm \ref{algo1}
+\end{lemma}
+
+\begin{proof}
+If $i$ is a non-probe, it's not hard to see $i$ is the only non-probe that unloaded weight on $seg(i)$, $y_i = w_{ii}$, so $y_i = \sum\limits_{n\in N}w_{ni} $. And every probe p that unloaded to $i$ has weight $w_{pi} = min(w^{'}_p, y_i)$, so $y_i \geq w_{pi}$, thus $y_i = \max(\sum\limits_{n\in N}w_{ni},\max\limits_{p\in P}w_{pi})$ for non-probes.\\
+
+If $i$ is a probe, $y_i = w_{ii}$. For probe $p$ that unloaded to i, $w_{pi} = min(w^{'}_p, y_i)$, so $y_i \geq \max\limits_{p\in P}w_{pi}$. Since $y_i = w_{ii}$ and $i \in P$, $y_i = \max\limits_{p\in P}w_{pi}$. Also, the summation of all weights unloaded from non-probes can not be greater than $y_i$, then $y_i \geq \sum\limits_{n\in N}w_{ni}$ in the above steps, so $y_i = \max(\sum\limits_{n\in N}w_{ni},\max\limits_{p\in P}w_{pi})$ also holds true for probes.\\
+\end{proof}
+
+The method for getting the maximal weighted independent set as follow:\\
+\begin{algorithm}[ht]
+\label{algo2}
+\ShowLn
+
+ \KwResult{Produce the Solution to maximal weighted independent set problem}
+ Solution set $R$ initialized to $\emptyset$ \par
+ All vertices initialized to unmarked.
+ %$S_{P} = \emptyset$\
+ %$S_{N} = \emptyset$\
+ 
+ \For{ $i \in V$ from left to right by left endpoint}{
+	 \If{$y_i > 0$}{
+     	$R \leftarrow R \cup \{i\}$\\
+        \If{$i$ is a Probe}
+        { Remove intervals intersects $i$ from $V$}
+        \ElseIf{i is a Non-Probe}
+        { 
+        	Mark Probes that intersects $i$ and remove them from $V$
+        }
+    }
+    \ElseIf{$y_i = 0$}{
+    	\If{$\exists p$ that is marked and $w_{ip} \ne 0 $}
+        {
+        	$R \leftarrow R \cup \{i\}$\\
+        }
+    }
+}
+$R$ is the maximum independent set upon termination of the algorithm.
+
+\caption{Construct the solution}
+\end{algorithm}
+
+\section{Analysis}
+
+	\begin{lemma}
+    \label{upper_bound}
+    For any independent set I, $\sum\limits_{i\in I}w_i \leq \sum\limits_{j \in V} y_{j}$
+  \end{lemma}
+
+  \begin{proof}
+    \label{upper_bound_proof}
+    $$\sum\limits_{i\in I}w_i = \sum\limits_{i\in I}\sum\limits_{j \in S}w_{ij} = \sum\limits_{j \in S}\sum\limits_{i\in I\cap Seg(j)}w_{ij} \leq \sum\limits_{j \in S}\max(\sum\limits_{i\in N}w_{ij},\max\limits_{i\in P}w_{ij}) = \sum\limits_{j \in S}y_{j} = \sum\limits_{j \in V}y_{j} $$\\
+    The third inequality follows from the fact that $I$ can only intersects a segment $j$ with a Probe or a set of Non-probes, which has less weight than sum of all weight of Non-probes or the Probe with largest weight in $Seg(j)$.
+  \end{proof}
+  The above proof shows that any independent set must have a total weight less than all the $y$ values summed up. Thus, if we can produce a such independent set that equals the summation of all $y$ values, then it must be the maximum independent set. Below, we'll show that the set we get from algorithm\ref{algo2} is the solution.
+
+\begin{definition}
+\label{TP}
+For a probe $p$, $T_{p}$ is the set of all vertex $i$ such that $l_{p} \leq l_{i} \leq r_{p}$. Note that $p \in T_{P}$.
+\end{definition}
+\begin{definition}
+\label{TN}
+For a set of Non-probes $N$, $T_{N}$ is the set of all vertex $i$ such that $\min\limits_{n \in N}l_{n} \leq l_{i} \leq \max\limits_{n\in N}r_{n}$. Similarly, $N \subseteq T_{N}$.
+\end{definition}
+
+\begin{definition}
+\label{tightp}
+A probe $p$ in solution set $R$ is tight if $w_{p} = \sum\limits_{i \in T_{p}} y_{i}$. For any i in $T_{N}$, we say i is covered by p.
+\end{definition}
+
+\begin{definition}
+\label{tightn}
+A set of Non-probes $N$ in solution set $R$ is tight if $\sum\limits_{n \in N}w_{n} = \sum\limits_{i \in T_{N}}y_{i}$. For any i in $T_{N}$, we say $i$ is covered by $N$.
+\end{definition}
+
+\begin{definition}
+\label{block}
+Let us define the set of Non-Probes added to $R$ continuously a Non-Probe block.
+\end{definition}
+
+
+
+\begin{lemma}
+\label{t0}
+Any Probe p in solution set $R$ is tight.
+\end{lemma}
+
+\begin{proof}
+The premise of $p$ being added to $R$ is $y_{p} > 0$, i.e. $w_{p}^{'} > 0$ when we start processing $p$. From the definition, for any vertex in $T_{p}$, $p \in S_{p}(i)$. According to algorithm\ref{algo1}, p is processed after we process every $i \in T_{p}$. When we process $i$, $w_{p}^{'} > y_{i}$, otherwise, $w_{p}^{'}$ will be 0 after processing $i$. Since $w_{p}^{'} > y_{i}$, $w_{p}^{'}$ is reduced by $y_{i}$ afterwards. In this way, $w_{p}^{'}$ is initialized to $w_{p}$, and decreased by $y_{i}$ for every $i$ in $T_{p}$(including processing p itself), and become $0$ after processing $p$. Hence $w_{p} = \sum\limits_{i \in T_{p}} y_{i}$.
+
+\end{proof}
+
+\begin{claim}
+\label{t1}
+For any Non-Probe $n \in T_{N}$ for a Non-Probe block N, if $y_n > 0$, $n \in N$.
+\end{claim}
+\begin{proof}
+It's not hard to see that the only way to prevent it from adding to $R$ is that it intersects some Probe $p \in R$. suppose $n \notin N$, there exists a probe $p \in R$, and $p$ intersects $n$. Since $N$ is a Non-Probe block, $p$ is added to $R$ before $N$. That indicates the Non-probe with leftmost left endpoint in $N$ also intersects $p$, contradiction.
+\end{proof}
+
+\begin{claim}
+\label{t2}
+For any Probe $p \in T_{N}$ in a Non-Probe block N, if $y_p > 0$, processing $p$ in Algorithm \ref{algo1} decreases $\sum\limits_{n \in N} w_{n}^{'}$ by $y_p$.
+\end{claim}
+\begin{proof}
+Since $p \in T_{N}$ and $y_p > 0$, $p \notin R$ indicates p is marked by some Non-Probe $n \in R$ by algorithm\ref{algo2} 
+, and $y_{n} > 0$. By definition of $T_{N}$, $n \in T_{N}$. Then all Non-Probes that unloaded weight to $p$ will also be added to $R$ by algorithm\ref{algo2} line 15-17, and belongs to $T_{N}$. So the total decrease of $w_n^{'}$ for Non-Probes in $T_{N}$ is $y_{p}$ by Algorithm \ref{algo1}.
+\end{proof}
+
+\begin{lemma}
+\label{t4}
+Any Non-Probe block N in solution set R is tight.
+\end{lemma}
+
+\begin{proof}
+It's easy to see \ref{t1} indicates that processing any Non-Probe $n^{*} \in T_{N}$ decrease $\sum\limits_{n \in N} w_{n}^{'}$ by $y_{n^{*}}$. By \ref{t1}, \ref{t2}, $\sum\limits_{n \in N} w_{n}^{'}$ + $\sum\limits_{i \in T_{n}} y_i$ is a constant. $w_{n}^{'} = w_{n}$ before algorithm \ref{algo1}, and $w_{n}^{'} = 0$ after. so  $\sum\limits_{n \in N} w_{n} = \sum\limits_{i \in T_{n}} y_i$
+\end{proof}
+
+\begin{theorem}
+ $\sum\limits_{i \in R} w_{i} = \sum\limits_{i \in V} y_i$
+\end{theorem}
+
+\begin{proof}
+Any interval $i$ with $y_i > 0$ is added to R otherwise contained in $T_p$ or $T_N$ for a probe p or a Non-Probe block $N$ by algorithm \ref{algo2}. By \ref{t0}, \ref{t2},  $\sum\limits_{i \in R} w_{i} = \sum\limits_{i \in V} y_i $ if we break $R$ into Probes and Non-probe blocks.
+\end{proof}
+
+
+
+\label{}
+
+%% The Appendices part is started with the command \appendix;
+%% appendix sections are then done as normal sections
+%% \appendix
+
+%% \section{}
+%% \label{}
+
+%% If you have bibdatabase file and want bibtex to generate the
+%% bibitems, please use
+%%
+%%  \bibliographystyle{elsarticle-harv} 
+%%  \bibliography{<your bibdatabase>}
+
+%% else use the following coding to input the bibitems directly in the
+%% TeX file.
+
+%\begin{thebibliography}{00}
+
+%% \bibitem[Author(year)]{label}
+%% Text of bibliographic item
+
+
+%\end{thebibliography}
+\end{document}
+
+\endinput
+%%
+%% End of file `elsarticle-template-harv.tex'.
